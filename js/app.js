@@ -65,20 +65,9 @@ const galleryItems = [
  ];
 
 const galleryContainer = document.querySelector('.js-gallery');
-const lightboxImg = createGalleryItemsMarkup('.lightbox__image');
+const lightboxImg = createGalleryItemsMarkup(galleryItems);
 
-galleryContainer.insertAdjacentElementHTML('beforeend', createGalleryItemsMarkup)
-
-// let rezStr = '';
-// for (let i = 0; i != galleryItems.length; i++) {
-//   rezStr += `<li class=\"gallery__item"\> <img  src=\"${galleryItems[i].preview}\" alt=\"${galleryItems[i].description}\"> </li>`;
-// }
-
-// gallery.insertAdjacentHTML('afterbegin', rezStr);
-// const galItem = document.querySelectorAll('.galleryItem');
-// gallery.style.height = 'auto';
-
-
+galleryContainer.insertAdjacentHTML('beforeend', lightboxImg)
 
 console.log(createGalleryItemsMarkup);
 
@@ -95,7 +84,7 @@ function createGalleryItemsMarkup(items) {
                class="gallery__image"
                data-src="${preview}" 
                data-source="${original}"
-               alt="${description}" 
+               alt="${description}"               
             />
          </a>
       </li>`;
@@ -104,13 +93,8 @@ function createGalleryItemsMarkup(items) {
 }
 
 
-//  const galleryImages = galleryItems.reduce(
-//    ({ preview, original, description }) => `<li class="gallery__item"> <img  src=\"${galleryItems[i].preview}\" alt=\"${galleryItems[i].description}\"> </li>`,
-//    '',
-// );
-//   const galleryList = document.querySelector('.js-gallery');
 
-//  galleryList.insertAdjacentHTML('beforeend', galleryImages);
+
 
 
 
@@ -143,13 +127,13 @@ function createGalleryItemsMarkup(items) {
 // }
 
 
-const closeModal = e => {
-   console.log(e.target);
-   if (closeModal) {
-      closeModal.classList.remove('is-open')
- }
-}
- butClose.addEventListener('click', closeModal);
+// const closeModal = e => {
+//    console.log(e.target);
+//    if (closeModal) {
+//       closeModal.classList.remove('is-open')
+//  }
+// }
+//  butClose.addEventListener('click', closeModal);
 
 
   
