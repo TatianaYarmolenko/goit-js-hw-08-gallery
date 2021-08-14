@@ -64,124 +64,57 @@ const galleryItems = [
    },
  ];
 
-// const galleryContainer = document.querySelector('.js-gallery');
-// const lightboxImg = createGalleryItemsMarkup(galleryItems);
-
-// galleryContainer.insertAdjacentHTML('beforeend', lightboxImg)
-
-// console.log(createGalleryItemsMarkup);
-
-// function createGalleryItemsMarkup(items) {
-//    return items
-//       .map(({ preview, original, description }) => {
-//          return `
-//       <li class="gallery__item">
-//          <a
-//             class="gallery__link"
-//             href="${original}"
-//             >
-//             <img 
-//                class="gallery__image"
-//                data-src="${preview}" 
-//                data-source="${original}"
-//                alt="${description}"               
-//             />
-//          </a>
-//       </li>`;
-//       })
-//       .join('');
-// }
-
-
-
-
-
-
-
-//console.dir(galery);
-//  const galleryRef = document.querySelector('.js-gallery');
- 
-//  galleryRef.addEventListener('click', onClick);
-
-//  function onClick(event) {
-//     if (event.target.nodeName !== 'BUTTON') {
-//        return;
-//     }
-//     console.log(event.target.textContent);
-//  }
-
-// galleryRef.insertAdjacentHTML('beforeend', createGalleryItemsMarkup(galleryItems));
-// addImgLazyLoading();
-
-// const addBtn = document.querySelector('[type="button"]')
-// let labelCounter = 9;
-
-// addBtn.addEventListener('click', onAddBtnClick);
-// function onAddBtnClick() {
-//    const btn = document.createElement('button')
-//    btn.textContent = `Кнопка ${labelCounter}`;
-//    btn.type = 'button';
-
-//    galleryRef.appendChild(btn);
-//    labelCounter +=1;
-// }
-
-
-// const closeModal = e => {
-//    console.log(e.target);
-//    if (closeModal) {
-//       closeModal.classList.remove('is-open')
-//  }
-// }
-//  butClose.addEventListener('click', closeModal);
-
-
-
-
-const gallery = document.querySelector(".gallery");
+const galleryContainer = document.querySelector('.js-gallery');
 const lightbox = document.querySelector('.js-lightbox');
 const lightboxImg = document.querySelector('.lightbox__image');
 const overlay = document.querySelector('.lightbox__overlay');
-const closeModalBtn = document.querySelector('.lightbox__button');
+const closeBtn = document.querySelector('.lightbox__button');
 
-const creatingGallery =  galleryItems.map((item) => {
-    return `<li class="gallery__item" >
-      <a class="gallery__link" href="${item.original}" >
-      <img
-      class="gallery__image"
-       src="${item.preview}"
-       data-source="${item.original}";
-       alt="${item.description}"
-     />
-      </a>
+
+const imgMarkup = createGalleryImgMarkup(galleryItems);
+galleryContainer.insertAdjacentHTML('beforeend', imgMarkup);
+
+function createGalleryImgMarkup(items) {
+   return items
+      .map(({ preview, original, description }) => {
+         return `
+      <li class="gallery__item">
+         <a class="gallery__link" href="${original}">
+          <img
+               loading='lazy'
+               class="gallery__image"
+               src="${preview}" 
+               data-source="${original}"
+               alt="${description}"               
+          />
+         </a>
       </li>`;
-  }).join('');
-gallery.insertAdjacentHTML('beforeend', creatingGallery);
+      })
+      .join('');
+}
 
-function openModal(evt) {
-    evt.preventDefault();
-  if (evt.target.nodeName !== 'IMG') {
+ function openModal(event) {
+    event.preventDefault();
+  if (event.target.nodeName !== 'IMG') {
     return;
   };
   lightbox.classList.add('is-open');
   galleryItems.forEach(item => {
-    if (evt.target.getAttribute('src') === item.preview) {
+    if (event.target.getAttribute('src') === item.preview) {
       lightboxImg.setAttribute('src', item.original);
       lightboxImg.setAttribute('alt', item.description);
     }
   })
 }
-function closeModal(evt) { 
-  if (evt.target.classList.contains('lightbox__button') || evt.target.classList.contains('lightbox__overlay') || evt.key === 'Escape' ) {
+
+function closeModal(event) { 
+  if (event.target.classList.contains('lightbox__button') || event.target.classList.contains('lightbox__overlay') || event.key === 'Escape' ) {
       lightbox.classList.remove('is-open');
       galleryItems.forEach(item => {lightboxImg.removeAttribute('src')})
     }
 }
 
-gallery.addEventListener('click', openModal);
-closeModalBtn.addEventListener('click', closeModal);
+galleryContainer.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
 document.addEventListener('keydown', closeModal); 
 overlay.addEventListener('click', closeModal);
-
-
-  
